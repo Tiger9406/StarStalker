@@ -1,0 +1,2 @@
+data/hygdata_v41.csv filter=lfs diff=lfs merge=lfs -text
+data/hygdata_v41.json filter=lfs diff=lfs merge=lfs -text
