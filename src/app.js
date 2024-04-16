@@ -1,7 +1,12 @@
+let jsonFile;
+fetch('.././data/hygdata_v41.json')
+    .then((response) => response.json())
+    .then((json) => jsonFile = json);
+
 
 //function to get array of distances
 //changeable later to include more properties
-function getDistanceArray(jsonFile){
+function getDistanceArray (jsonFile){
     let array = [];
     //for each item in jsonFile
     for (const key in jsonFile) {
