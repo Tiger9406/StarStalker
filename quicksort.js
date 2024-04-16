@@ -22,3 +22,17 @@ function quickSort(array){
     //returns divided arrays + middle
     return quickSort(left).concat(pivot, quickSort(right));
 }
+
+function largestKofArray(array, k){
+    //sort array
+    let sortedArray = quickSort(array);
+    //return last k elements
+    return sortedArray.slice(-k);
+}
+
+function smallestKofArray(array, k){
+    //sort array
+    let sortedArray = quickSort(array);
+    //return first k elements
+    return sortedArray.slice(0, k);
+}
