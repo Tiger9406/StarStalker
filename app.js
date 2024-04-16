@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dbd7aa94d068c7e9f831770c35fa9572c5fc462d49dd61444bdb9f2d50413877
-size 525
+
+//function to get array of distances
+//changeable later to include more properties
+function getDistanceArray(jsonFile){
+    let array = [];
+    //for each item in jsonFile
+    for (const key in jsonFile) {
+        const star_info = jsonFile[key];
+        let un_squarerooted_distance = Math.pow(star_info.x, 2)+Math.pow(star_info.y, 2)+Math.pow(star_info.z, 2);
+        let distance = Math.sqrt(un_squarerooted_distance);
+        //append each distance
+        array.push(distance);
+    }
+    return array;
+}
