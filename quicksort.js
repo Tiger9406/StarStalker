@@ -12,7 +12,7 @@ function quickSort(array){
     let right = [];
 
     //if smaller goes left, if bigger goes right
-    for (let i = 1; i < array.length; i++) {
+    for (let i = 0; i < array.length-1; i++) {
         if (array[i] < pivot) {
             left.push(array[i]);
         } else {
