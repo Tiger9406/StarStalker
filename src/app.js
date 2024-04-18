@@ -1,7 +1,14 @@
-let jsonFile;
+let starsJson;
 fetch('.././data/hygdata_v41.json')
     .then((response) => response.json())
-    .then((json) => jsonFile = json);
+    .then((json) => starsJson = json);
+
+function getStars() {
+    const property = document.getElementById("properties").value;
+    const greatestOrLeast = document.getElementById("greatest-or-least").value;
+    const k = document.getElementById("number").value;
+
+}
 
 
 //function to get array of distances

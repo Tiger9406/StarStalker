@@ -6,8 +6,38 @@
     <link href="../output.css" rel="stylesheet">
     <title>StarStalker</title>
 </head>
-<body>
-    <h1 class="text-red-500">StarStalker</h1>
+<body class="bg-black text-white">
+
+    <div class="flex items-center justify-center h-screen mx-auto">
+        <div class=" border-white border-2 rounded-sm flex justify-center flex-col items-center space-y-16 p-4">
+            <h1 class="text-3xl block">StarStalker</h1>
+            <div class="flex space-x-4">
+                <div>
+                    <select id="properties" name="properties" class="bg-black border-2 border-white rounded-md py-2">
+                        <option value="distance">Distance</option>
+                        <option value="radial velocity">Radial Velocity</option>
+                        <option value="visual apparent magnitude">Visual Apparent Magnitude</option>
+                        <option value="luminosity">Luminosity</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select id="greatest-or-least" name="greatest-or-least" class="bg-black border-2 border-white rounded-md py-2">
+                        <option value="greatest">Greatest</option>
+                        <option value="least">Least</option>
+                    </select>
+                </div>
+
+                <div>
+                    <input id="number" name="number" type="number" placeholder="Number" class="bg-black text-white border-2 border-white rounded-md p-2 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" >
+                </div>
+            </div>
+
+            <button onclick="getStars();" type="button" class="text-white hover:text-black border border-white hover:bg-white rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2">Go</button>
+
+        </div>
+    </div>
+
 
     <script src="./app.js"></script>
     <script src="./heap.js"></script>
