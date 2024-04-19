@@ -7,6 +7,11 @@
     <title>StarStalker</title>
 </head>
 <body class="bg-black text-white font-mono">
+    <!-- Canvas -->
+    <div class="fixed left-0 top-0 right-0 bottom-0" style="z-index: -1;">
+        <canvas id="canvas" class="absolute w-full h-full left-0 top-0"></canvas>
+    </div>
+
     <!-- Back Button For Filter Menu -->
     <div id="filter-extra-buttons" class="flex space-x-4 p-4 hidden absolute top-4 left-4">
         <button onclick="document.getElementById('filter-menu').classList.add('hidden'); document.getElementById('start-menu').classList.remove('hidden'); document.getElementById('filter-extra-buttons').classList.add('hidden');" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Back</button>
@@ -53,18 +58,14 @@
 
                 </div>
 
-                <button onclick="getStars(); document.getElementById('filter-menu').classList.add('hidden'); document.getElementById('filter-extra-buttons').classList.add('hidden'); document.getElementById('stars-extra-buttons').classList.remove('hidden');" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">GO!</button>
+                <button onclick="document.getElementById('filter-menu').classList.add('hidden'); document.getElementById('filter-extra-buttons').classList.add('hidden'); document.getElementById('stars-extra-buttons').classList.remove('hidden');" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">GO!</button>
             </div>
         </div>
     </div>
 
-    <!-- Canvas -->
-    <div class="fixed left-0 top-0 right-0 bottom-0" style="z-index: -1;">
-        <canvas id="canvas" class="absolute w-full h-full left-0 top-0"></canvas>
-    </div>
-
-    <script src="./app.js"></script>
-    <script src="./heap.js"></script>
-    <script src="./quicksort.js"></script>
+    <script type="module" src="./src/stars.js"></script>
+    <script type="module" src="./src/main.js"></script>
+    <script src="./src/heap.js"></script>
+    <script src="./src/quicksort.js"></script>
 </body>
 </html>
