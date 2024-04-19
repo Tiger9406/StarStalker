@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../output.css" rel="stylesheet">
+    <title>StarStalker</title>
+</head>
+<body class="bg-black text-white font-mono">
+    <!-- Canvas -->
+    <div class="fixed left-0 top-0 right-0 bottom-0" style="z-index: -1;">
+        <canvas id="canvas" class="absolute w-full h-full left-0 top-0"></canvas>
+    </div>
+
+    <!-- Back Button For Filter Menu -->
+    <div id="filter-extra-buttons" class="flex space-x-4 p-4 hidden absolute top-0 left-0">
+        <button id="back" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Back</button>
+    </div>
+
+    <!-- Back and Info Buttons For Star Display -->
+    <div id="stars-extra-buttons" class="flex justify-between p-4 hidden top-0 left-0 w-screen">
+        <div class="flex space-x-4">
+            <button id="filter-top" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Filter</button>
+            <button onclick="" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Info</button>
+        </div>
+        <button id="reset-view" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Reset View</button>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu" class="flex flex-col items-center justify-center h-screen mx-auto space-y-8">
+        <h1 class="text-8xl">StarStalker</h1>
+        <div class="flex space-x-4">
+            <button id="filter" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Filter</button>
+            <button id="view" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">View</button>
+        </div> 
+    </div>
+
+    <!-- Filter Menu -->
+    <div id="filter-menu" class="flex items-center justify-center h-screen mx-auto hidden">
+        <div class="border-white border-2  p-4 max-h-96 max-w-screen-md h-full w-full">
+            <h1 class="text-2xl self-start justify-self-start">Filter</h1>
+
+            <div class="flex justify-center flex-col items-center space-y-16 mt-20">
+                <div class="flex space-x-8">
+                <div>
+                    <input id="number" name="number" type="number" placeholder="Input: # (0-119,626)" class="bg-black text-white border-2 border-white p-2 placeholder:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" >
+                </div>
+
+                <div>
+                    <select id="properties" name="properties" placeholder="Select Property" class="bg-black border-2 border-white p-2 h-full">
+                        <option value="distance">Distance</option>
+                        <option value="radial velocity">Radial Velocity</option>
+                        <option value="visual apparent magnitude">Visual Apparent Magnitude</option>
+                        <option value="luminosity">Luminosity</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select id="greatest-or-least" name="greatest-or-least" class="bg-black border-2 border-white p-2 h-full">
+                        <option value="greatest">Greatest</option>
+                        <option value="least">Least</option>
+                    </select>
+                </div>
+
+                </div>
+
+                <button id="go" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">GO!</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./src/stars.js"></script>
+    <script type="module" src="./src/main.js"></script>
+    <script src="./src/heap.js"></script>
+    <script src="./src/quicksort.js"></script>
+</body>
+</html>
