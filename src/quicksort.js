@@ -1,7 +1,10 @@
+
 function loadJSONTOArray(jsonData){
-    const jsonData = fs.readFileSync(filename, 'utf8');
-    const converted = JSON.parse(jsonData);
+    const fs = require('fs');
+    const readJsonData = fs.readFileSync(jsonData);
+    const converted = JSON.parse(readJsonData);
     let arrayData = [];
+    
     for (let key in converted) {
         arrayData.push(converted[key]);
     }
@@ -16,7 +19,7 @@ function swap(array, i, j) {
 
 function partitionFunc(array, bottom, top) {
     //choose top as pivot
-    const pivot = array[top];
+    const pivot = parseFloat(array[top].dist);
 
     let i = bottom;
 
@@ -25,7 +28,7 @@ function partitionFunc(array, bottom, top) {
         //if smaller, swap with i; i goes up along with j
         //if larger, i stays, j goes up
         //next j will swap with i
-        if (array[j][9] < pivot) {
+        if (parseFloat(array[j].dist) < pivot) {
             swap(array, i, j);
             i++;
         }
@@ -78,3 +81,5 @@ function smallestKofArray(array, k){
     return sortedArray.slice(0, k);
 }
 
+// const arrayData = loadJSONTOArray('data/hygdata_v41.json');
+// console.log(largestKofArray(arrayData, 5));
