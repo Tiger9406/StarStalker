@@ -1,3 +1,13 @@
+function loadJSONTOArray(jsonData){
+    const jsonData = fs.readFileSync(filename, 'utf8');
+    const converted = JSON.parse(jsonData);
+    let arrayData = [];
+    for (let key in converted) {
+        arrayData.push(converted[key]);
+    }
+    return arrayData;
+}
+
 function swap(array, i, j) {
     let temp = array[j];
     array[j] = array[i];
@@ -15,7 +25,7 @@ function partitionFunc(array, bottom, top) {
         //if smaller, swap with i; i goes up along with j
         //if larger, i stays, j goes up
         //next j will swap with i
-        if (array[j] < pivot) {
+        if (array[j][9] < pivot) {
             swap(array, i, j);
             i++;
         }
@@ -67,3 +77,4 @@ function smallestKofArray(array, k){
     //return first k elements
     return sortedArray.slice(0, k);
 }
+
