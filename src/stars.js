@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RenderPass } from 'three/examples/jsm/Addons.js';
+import { EffectComposer } from 'three/examples/jsm/Addons.js';
+import { UnrealBloomPass } from 'three/examples/jsm/Addons.js';
 
 let starsJson;
 fetch('.././data/hygdata_v41.json')
@@ -8,6 +11,7 @@ fetch('.././data/hygdata_v41.json')
         starsJson = json;
         setActiveStars();
         drawStars();
+        console.log(starsJson.length)
     })
 
 
@@ -17,19 +21,15 @@ const canvas = document.getElementById("canvas");
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
 renderer.setSize( window.innerWidth, window.innerHeight );
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-// over head view
-// camera.position.set( 0, 20, 100 ); 
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000000);
 // view from earth
-camera.position.set( 0, 0, 0.1 )
+camera.position.set(0, 0, 0.3)
 
 // controls
 const controls = new OrbitControls( camera, canvas );
+// controls.enablePan = true;
+controls.enableZoom = true;
 controls.enableDamping = true;
-
-// Spheres
-const sphereGeometry = new THREE.SphereGeometry( 0.01, 32, 32 ); 
-const sphereMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } ); 
 
 // Particles
 const textureLoader = new THREE.TextureLoader();
@@ -39,7 +39,20 @@ const particlesMaterial = new THREE.PointsMaterial({
     map: particleTexture, // Texture
     size: 0.01, // Size of the particles
     sizeAttenuation: true, // size of the particle will be smaller as it gets further away from the camera, and if it's closer to the camera, it will be bigger
-  });
+});
+
+// Bloom
+const renderScene = new RenderPass(scene, camera);
+const composer = new EffectComposer(renderer);
+composer.addPass(renderScene);
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1,
+    0.1,
+    0.1
+);
+composer.addPass(bloomPass);
+
 
 const activeStarsClose = [];
 const activeStarsFar = [];
@@ -47,8 +60,8 @@ const activeStarsFar = [];
 function setActiveStars() {
     for(let i = 0; i < starsJson.length; i++) {
         const star = starsJson[i];
-        // if (star.dist <= 50) {
-            if(star.dist <= 10) activeStarsClose.push(star);
+        // if (star.con == "Leo" ) {
+            if(star.dist <= 20) activeStarsClose.push(star);
             else activeStarsFar.push(star);
         // }
     }
@@ -58,11 +71,12 @@ function drawStars() {
     // Draw close stars as spheres
     for(let i = 0; i < activeStarsClose.length; i++) {
         const star = activeStarsClose[i];
+        const color = getHex(star.ci);
+        const sphereMaterial = new THREE.MeshBasicMaterial( { color: color} ); 
+        const sphereGeometry = new THREE.SphereGeometry( star.mag / 1000, 32, 32 ); 
         const sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
         scene.add(sphere);
-        sphere.position.x = star.x;
-        sphere.position.y = star.y;
-        sphere.position.z = star.z;
+        sphere.position.set(star.x, star.y, star.z);
     }
 
         // Draw far stars as particles
@@ -86,10 +100,29 @@ function drawStars() {
     // }
 }
 
+
 function animate() {
-
+    controls.update();
 	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-
+	// renderer.render( scene, camera );
+    composer.render();
 }
 animate();
+
+
+// get approximate hex color value from star color index
+function getHex(ci) {
+    if(ci >= 1.4 ) return "#ffcc6f";
+    if(ci >= 0.8) return "#ffd2a1";
+    if(ci >= 0.6) return "#FDB813";
+    if(ci >= 0.3) return "#f8f7ff";
+    if(ci >= 0.0) return "#cad7ff";
+    if(ci >= -0.33) return "#aabfff";
+    return "#ffffff";
+}
+
+function resetView() {
+    controls.reset();
+}
+
+document.getElementById("reset-view").addEventListener("click", resetView);
