@@ -1,3 +1,17 @@
+function loadJSONTOArray(jsonData)
+{
+    const fs = require('fs');
+    const readJsonData = fs.readFileSync(jsonData);
+    const converted = JSON.parse(readJsonData);
+    let arrayData = [];
+    
+    for (let key in converted)
+     {
+        arrayData.push(converted[key]);
+    }
+    return arrayData;
+}
+
 // Min Heap Class
 class MinHeap
 {
@@ -202,7 +216,7 @@ class MaxHeap
     }
 }
 
-function kthLargest(nums, k) 
+function kthLargest(nums, k, property) 
 {
     // min heap
     let pq = new MinHeap();
