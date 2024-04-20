@@ -31,7 +31,7 @@
     </div>
 
     <!-- Start Menu -->
-    <div id="start-menu" class="flex flex-col items-center justify-center h-screen mx-auto space-y-8">
+    <div id="start-menu" class="flex flex-col items-center justify-center h-screen mx-auto space-y-12">
         <h1 class="text-8xl">StarStalker</h1>
         <div class="flex space-x-4">
             <button id="filter" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Filter</button>
@@ -57,8 +57,8 @@
                     <select id="properties" name="properties" placeholder="Select Property" class="bg-black border-2 border-white p-2 h-full w-52">
                         <option value="dist">Distance</option>
                         <option value="rv">Radial Velocity</option>
-                        <option value="absmag">Magnitude</option>
-                        <option value="lum">Luminosity</option>
+                        <option value="mag">Visual Magnitude</option>
+                        <option value="absmag">Absolute Magnitude</option>
                         <option value="con">Constellation Group</option>
                     </select>
                 </div>
@@ -175,8 +175,8 @@
                 <button id="close-settings" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Close</button>
             </div>
 
-            <div class="flex flex-col justify-center items-center mt-20 mx-10 relative">
-                <label for="change-rd" class="block mb-2 text-sm font-medium text-white">Max Number of Detailed Stars</label>
+            <div class="flex flex-col justify-center items-center mt-20 mx-10 relative"> 
+                <label for="change-rd" class="block mb-2 text-sm font-medium text-white">Maximum Number of Detailed Stars</label>
                 <input id="change-rd" type="range" min="0" max="20000" value="1000" step="1000" class="w-full h-2 bg-white rounded-lg appearance-none cursor-pointer accent-gray-500">
                 <div id="reasonable-range-values">
                     <span class="text-sm text-white absolute start-0 -bottom-6">0</span>
@@ -200,15 +200,15 @@
     </div>
 
     <!-- Star Info -->
-    <div id="star-info" class="flex justify-between p-4 absolute bottom-4 right-4 border-2 border-white hidden flex-col space-y-2 text-sm w-80">
+    <div id="star-info" class="flex justify-between p-4 absolute bottom-4 right-4 border-2 border-white hidden flex-col space-y-2 text-sm w-96">
         <p class="text-lg">Star Info</p>
         <p>Name: <span id="proper-name"></span></p>
         <p>Constellation Group: <span id="constellation"></span></p>
         <p>Spectral Type: <span id="spectral-type"></span></p>
         <p>Distance from Earth: <span id="distance"></span></p>
         <p>Radial Velocity: <span id="radial-velocity"></span></p>
-        <p>Magnitude: <span id="absolute-magnitude"></span></p>
-        <p>Luminosity: <span id="luminosity"></span></p>
+        <p>Visual Magnitude: <span id="visual-magnitude"></span></p>
+        <p>Absolute Magnitude: <span id="absolute-magnitude"></span></p>
     </div>
 
     <script type="module" src="./src/stars.js"></script>

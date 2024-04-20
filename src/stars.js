@@ -9,7 +9,7 @@ const loader = document.getElementById("loading-icon");
 
 let starsJson;
 let activeStars = [];
-fetch('.././data/hygdata_v41.json')
+fetch('.././data/hyglike.json')
     .then((response) => response.json())
     .then((json) => {
         starsJson = json;
@@ -24,7 +24,7 @@ const canvas = document.getElementById("canvas");
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
 renderer.setSize( window.innerWidth, window.innerHeight );
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000000);
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 100000);
 // view from earth
 camera.position.set(0, 0, 0.2)
 
@@ -77,7 +77,7 @@ function drawStars() {
         const star = activeStarsDetailed[i];
         const color = getHex(star.ci);
         const sphereMaterial = new THREE.MeshBasicMaterial( { color: color} ); 
-        const sphereGeometry = new THREE.SphereGeometry( star.absmag / 1000, 32, 32 ); 
+        const sphereGeometry = new THREE.SphereGeometry( star.absmag / 750, 32, 32 ); 
         const sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
         sphere.starData = star;
         sphere.position.set(star.x, star.y, star.z);
@@ -220,7 +220,7 @@ function displayStarData(data) {
         document.getElementById("distance").innerText = "";
         document.getElementById("radial-velocity").innerText = "";
         document.getElementById("absolute-magnitude").innerText = "";
-        document.getElementById("luminosity").innerText = "";
+        document.getElementById("visual-magnitude").innerText = "";
     } else {
         document.getElementById("proper-name").innerText = data.proper;
         document.getElementById("constellation").innerText = data.con;
@@ -228,7 +228,7 @@ function displayStarData(data) {
         document.getElementById("distance").innerText = data.dist;
         document.getElementById("radial-velocity").innerText = data.rv;
         document.getElementById("absolute-magnitude").innerText = data.absmag;
-        document.getElementById("luminosity").innerText = data.lum;
+        document.getElementById("visual-magnitude").innerText = data.mag;
     }
 }
 

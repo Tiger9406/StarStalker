@@ -64,13 +64,11 @@ function updateDropdown() {
         } else if (prop == "rv") {
             greatest.innerText = "Fastest";
             least.innerText = "Slowest";
-        } else if (prop == "absmag") {
-            greatest.innerText = "Biggest";
-            least.innerText = "Smallest";
-        } else if (prop == "lum") {
-            greatest.innerText = "Brightest";
-            least.innerText = "Dimmest";
-        } 
+        } else if (prop == "absmag" || prop == "mag") {
+            // least = brightest bc stars with more negative magnitudes are brighter
+            least.innerText = "Brightest";
+            greatest.innerText = "Dimmest";
+        }
     }
 }
 
