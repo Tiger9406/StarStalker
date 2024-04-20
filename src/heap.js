@@ -1,125 +1,90 @@
 // Min Heap Class
 class MinHeap
 {
-    // Constructor 
-
+    // Initializes empty heap array
     constructor() 
     {
         this.heap = [];
     }
 
-    // Helper Functions  
-
-    getValueAtIndex(index)
-    {
-        return this.heap[index];
-    }
-
-    getLeftChildIndex(parentIndex)
-    {
-        return 2 * parentIndex + 1;
-    }
-
-    getRightChildIndex(parentIndex)
-    {
-        return 2 * parentIndex + 2;
-    }
-
-    getParentIndex(childIndex)
-    {
-        return Math.floor((childIndex - 1) / 2);
-    }
-
-    hasLeftChild(index)
-    {
-        return this.getLeftChildIndex(index) < this.heap.length;
-    }
-
-    hasRightChild(index)
-    {
-        return this.getRightChildIndex(index) < this.heap.length;
-    }
-
-    hasParent(index)
-    {
-        return this.getParentIndex(index) >= 0;
-    }
-
     getLeftChild(index)
     {
-        return this.getValueAtIndex(this.getLeftChildIndex(index)); 
+        return this.heap[2 * index + 1]; 
     }
 
     getRightChild(index)
     {
-        return this.getValueAtIndex(this.getRightChildIndex(index));
+        return this.heap[2 * index + 2];
     }
 
     getParent(index)
     {
-        return this.getValueAtIndex(this.getParentIndex(index));
+        return this.heap[Math.floor((index - 1) / 2)];
     }
 
-    getSize()
+    size()
     {
         return this.heap.length;
     }
 
-    // Heapify Related Functions 
-
-    swapIndices(indexOne, indexTwo)
+    // Swaps the value at indexOne with indexTwo and indexTwo with indexOne
+    swap(indexOne, indexTwo)
     {
-        const tempValue = this.getValueAtIndex(indexOne);
-        this.heap[indexOne] = this.getValueAtIndex(indexTwo);
+        const tempValue = this.heap[indexOne];
+        this.heap[indexOne] = this.heap[indexTwo];
         this.heap[indexTwo] = tempValue;
     }
 
-    peekTop()
+    peek()
     {
         if (this.heap.length == 0) return null;
 
-        return this.getValueAtIndex(0);
+        return this.heap[0];
     }
 
-    removeRoot()
+    // Extracts min from heap and heapifies array 
+    remove()
     {
-        if (this.heap.length == 0) return null;
-
-        const element = this.getValueAtIndex(0);
-        this.heap[0] = this.getValueAtIndex(this.getSize() - 1);
+        const element = this.heap[0];
+        this.heap[0] = this.heap[this.size() - 1];
         this.heap.pop();
         this.heapifyDown();
         return element;
     }
 
+    // Inserts a new element into the heap 
     insert(item)
     {
         this.heap.push(item);
         this.heapifyUp();
     }
 
+    // Heapify functions 
+
     heapifyUp()
     {
-        let index = this.getSize() - 1;
-        while(this.hasParent(index) && this.getParent(index) > this.getValueAtIndex(index))
+        let child = this.size() - 1;
+        let parent = Math.floor((child - 1) / 2);
+        while(parent >= 0 && this.heap[parent] > this.heap[child])
         {
-            this.swapIndices(this.getParentIndex(index), index);
-            index = this.getParentIndex(index);
+            this.swap(parent, child);
+            child = parent;
+            parent = Math.floor((child - 1) / 2);
         }
     }
 
     heapifyDown()
     {
         let index = 0;
-        while (this.hasLeftChild(index))
+        while ((2 * index + 1) < this.size())
         {
-            let smallerChildIndex = this.getLeftChildIndex(index);
-            if (this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)) 
+            let smallerChildIndex = 2 * index + 1;
+            if ((2 * index + 2) < this.size() && this.getRightChild(index) < this.getLeftChild(index)) 
             {
-                smallerChildIndex = this.getRightChildIndex(index);
+                smallerChildIndex = 2 * index + 2;
             }
-            if (this.getValueAtIndex(index) < this.getValueAtIndex(smallerChildIndex)) break;
-            else this.swapIndices(index, smallerChildIndex);
+            if (this.heap[index] < this.heap[smallerChildIndex]) break;
+            else this.swap(index, smallerChildIndex);
             index = smallerChildIndex;
         }
     }
@@ -135,18 +100,135 @@ class MinHeap
     }
 }
 
-// Code translated to javascript from lecture slides
+// Max Heap Class
+class MaxHeap
+{
+    // Initializes empty heap array
+    constructor() 
+    {
+        this.heap = [];
+    }
+
+    getLeftChild(index)
+    {
+        return this.heap[2 * index + 1]; 
+    }
+
+    getRightChild(index)
+    {
+        return this.heap[2 * index + 2];
+    }
+
+    getParent(index)
+    {
+        return this.heap[Math.floor((index - 1) / 2)];
+    }
+
+    size()
+    {
+        return this.heap.length;
+    }
+
+    // Swaps the value at indexOne with indexTwo and indexTwo with indexOne
+    swap(indexOne, indexTwo)
+    {
+        const tempValue = this.heap[indexOne];
+        this.heap[indexOne] = this.heap[indexTwo];
+        this.heap[indexTwo] = tempValue;
+    }
+
+    peek()
+    {
+        if (this.heap.length == 0) return null;
+
+        return this.heap[0];
+    }
+
+    // Extracts min from heap and heapifies array 
+    remove()
+    {
+        const element = this.heap[0];
+        this.heap[0] = this.heap[this.size() - 1];
+        this.heap.pop();
+        this.heapifyDown();
+        return element;
+    }
+
+    // Inserts a new element into the heap 
+    insert(item)
+    {
+        this.heap.push(item);
+        this.heapifyUp();
+    }
+
+    // Heapify functions 
+    
+    heapifyUp()
+    {
+        let child = this.size() - 1;
+        let parent = Math.floor((child - 1) / 2);
+        while(parent >= 0 && this.heap[parent] < this.heap[child])
+        {
+            this.swap(parent, child);
+            child = parent;
+            parent = Math.floor((child - 1) / 2);
+        }
+    }
+
+    heapifyDown()
+    {
+        let index = 0;
+        while ((2 * index + 1) < this.size())
+        {
+            let greaterChildIndex = 2 * index + 1;
+            if ((2 * index + 2) < this.size() && this.getRightChild(index) > this.getLeftChild(index)) 
+            {
+                greaterChildIndex = 2 * index + 2;
+            }
+            if (this.heap[index] > this.heap[greaterChildIndex]) break;
+            else this.swap(index, greaterChildIndex);
+            index = greaterChildIndex;
+        }
+    }
+
+    printHeap()
+    {
+        var heap = ` ${this.heap[0]} `
+        for (var index = 1; index < this.heap.length; index++) 
+        {
+            heap += ` ${this.heap[index]} `;
+        }
+        console.log(heap);
+    }
+}
+
 function kthLargest(nums, k) 
 {
     // min heap
     let pq = new MinHeap();
     for (const element of nums) 
     {
-        if (pq.getSize() === k && element < pq.peekTop()) 
+        if (pq.size() == k && element < pq.peek()) 
             continue;
         pq.insert(element);
-        if (pq.getSize() > k) 
-            pq.removeRoot();
+        if (pq.size() > k) 
+            pq.remove();
+    }
+
+    pq.printHeap();
+}
+
+function kthSmallest(nums, k) 
+{
+    // max heap
+    let pq = new MaxHeap();
+    for (const element of nums) 
+    {
+        if (pq.size() == k && element > pq.peek()) 
+            continue;
+        pq.insert(element);
+        if (pq.size() > k) 
+            pq.remove();
     }
 
     pq.printHeap();
