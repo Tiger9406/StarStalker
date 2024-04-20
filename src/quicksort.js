@@ -80,6 +80,3 @@ function smallestKofArray(array, k, property){
     //return first k elements
     return sortedArray.slice(0, k);
 }
-
-const arrayData = loadJSONTOArray('data/hygdata_v41.json');
-console.log(largestKofArray(arrayData, 5, 'dist'));

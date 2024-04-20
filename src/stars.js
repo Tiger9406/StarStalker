@@ -249,6 +249,7 @@ function hideLoader() {
 
 document.getElementById("go").addEventListener("click", filterStars);
 function filterStars() {
+    showLoader();
     const k = parseInt(document.getElementById("number").value);
     const property = document.getElementById("properties").value;
     const greatestOrLeast = document.getElementById("greatest-or-least").value;
@@ -262,13 +263,25 @@ function filterStars() {
                 activeStars.push(star);
             }
         }
-    } else {
-        starsJson.sort(function(a, b){return a[property] - b[property]});
-        if(greatestOrLeast == "least") activeStars = starsJson.slice(0, k);
-        else activeStars = starsJson.slice(-1 * k);
-    }
 
-    clearScene();
-    drawStars();
-    resetView();
+        clearScene();
+        drawStars();
+        resetView();
+        hideLoader();
+    } else {
+        let sortedStars;
+        fetch('.././data/hyglike.json')
+        .then((response) => response.json())
+        .then((json) => {
+            sortedStars = quickSort(json, property);
+            if(greatestOrLeast == "least") activeStars = sortedStars.slice(0, k);
+            else activeStars = sortedStars.slice(-1 * k);
+
+            clearScene();
+            drawStars();
+            resetView();
+            hideLoader();
+        })
+        
+    }
 }
