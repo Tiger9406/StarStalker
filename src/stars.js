@@ -7,6 +7,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/Addons.js';
 // DOM elements
 const loader = document.getElementById("loading-icon");
 
+// load star data from json file
 let starsJson;
 let activeStars = [];
 fetch('.././data/hyglike.json')
@@ -18,8 +19,8 @@ fetch('.././data/hyglike.json')
     })
 
 
+// create scene and renderer
 const scene = new THREE.Scene();
-
 const canvas = document.getElementById("canvas");
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -30,7 +31,6 @@ camera.position.set(0, 0, 0.2)
 
 // controls
 const controls = new OrbitControls( camera, canvas );
-// controls.enablePan = true;
 controls.enableZoom = true;
 controls.enableDamping = true;
 
@@ -226,6 +226,7 @@ function displayStarData(data) {
         document.getElementById("constellation").innerText = data.con;
         document.getElementById("spectral-type").innerText = data.spect;
         document.getElementById("distance").innerText = data.dist;
+        document.getElementById("xyz").innerText = `(${data.x}, ${data.y}, ${data.z})`;
         document.getElementById("radial-velocity").innerText = data.rv;
         document.getElementById("absolute-magnitude").innerText = data.absmag;
         document.getElementById("visual-magnitude").innerText = data.mag;
@@ -255,6 +256,9 @@ function filterStars() {
     const greatestOrLeast = document.getElementById("greatest-or-least").value;
     const constellation = document.getElementById("constellations").value;
 
+    let heapTime;
+    let quickTime;
+
     if(property == "con") {
         activeStars = [];
         for(let i = 0; i < starsJson.length; i++) {
@@ -266,37 +270,68 @@ function filterStars() {
     } else {
         let heapSorted;
         let quickSorted;
-        let sorted;
-        const filtered = starsJson.filter(star => star[property] != "")
+
+        let heapStartTime;
+        let heapEndTime;
+        let quickStartTime;
+        let quickEndTime;
+
         if(greatestOrLeast == "least") {
+            heapStartTime =  performance.now();
             heapSorted = heapsortSmallestK(starsJson, k, property);
+            heapEndTime =  performance.now();
+            
+            quickStartTime =  performance.now();
             quickSorted = quicksortSmallestK(starsJson, k, property);
-            sorted = Array.from(filtered).sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])}).slice(0, k);
+            quickEndTime =  performance.now();
         }
         else{
+            heapStartTime =  performance.now();
             heapSorted = heapsortLargestK(starsJson, k, property);
+            heapEndTime =  performance.now();
+
+            quickStartTime =  performance.now();
             quickSorted = quicksortLargestK(starsJson, k, property);
-            sorted = Array.from(filtered).sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])}).slice(-k);
+            quickEndTime =  performance.now();
         } 
-        activeStars = sorted;
-        let heapSame = true;
-        let quickSame = true;
-        heapSorted.sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])});
-        // for(let i = 0; i < sorted.length; i++) {
-        //     if(sorted[i][property] != heapSorted[i][property]) {
-        //         heapSame = false;
-        //         console.log("aa");
-        //         console.log(sorted[i][property]);
-        //         console.log(quickSorted[i][property]);
-        //         console.log(heapSorted[i][property]);
-        //     }
-               
-        // }
-        // console.log(heapSame)
+        activeStars = heapSorted;
+
+        heapTime = heapEndTime - heapStartTime;
+        quickTime = quickEndTime - quickStartTime;
+    }
+
+    const filterProperties = {
+        "dist-greatest" : "farthest",
+        "dist-least" : "closest",
+        "rv-greatest" : "fastest",
+        "rv-least" : "slowest",
+        "absmag-greatest" : "absolute dimmest",
+        "absmag-least" : "absolute brightest",
+        "mag-greatest" : "visually dimmest",
+        "mag-least" : "visually brightest"
+    };
+
+
+    if(property == "con") {
+        document.getElementById("num-stars-con").innerText = activeStars.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+        document.getElementById("filter-info").classList.add("hidden");
+        document.getElementById("filter-info-con").classList.remove("hidden");
+        document.getElementById("con-group").innerText = constellation;
+    } else {
+        document.getElementById("num-stars").innerText = activeStars.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+        document.getElementById("filter-info").classList.remove("hidden");
+        document.getElementById("filter-info-con").classList.add("hidden");
+        document.getElementById("filter-property").innerText = filterProperties[property + "-" + greatestOrLeast];
+        document.getElementById("heap-time").innerText = heapTime;
+        document.getElementById("quick-time").innerText = quickTime;
+        document.getElementById("filter-time").classList.remove("hidden");
+        if(greatestOrLeast == "greatest") document.getElementById("heap-type").innerText = "min";
+        else document.getElementById("heap-type").innerText = "max";
     }
 
     clearScene();
     drawStars();
     resetView();
     hideLoader();
+
 }
