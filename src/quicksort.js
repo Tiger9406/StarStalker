@@ -6,8 +6,7 @@ function swap(array, i, j) {
 
 function partitionFunc(array, bottom, top, property) {
     //choose top as pivot
-    if(isNaN(parseFloat(pivot))) console.log(pivot);
-    const pivot = parseFloat(array[top][property]);
+    const pivot = array[top][property];
 
     let i = bottom;
 
@@ -16,7 +15,7 @@ function partitionFunc(array, bottom, top, property) {
         //if smaller, swap with i; i goes up along with j
         //if larger, i stays, j goes up
         //next j will swap with i
-        if (parseFloat(array[j][property]) < pivot) {
+        if (array[j][property] < pivot) {
             swap(array, i, j);
             i++;
         }
@@ -29,9 +28,7 @@ function partitionFunc(array, bottom, top, property) {
 
 
 function quickSort(array, property){
-    console.log(array)
     array = array.filter(star => star[property] != "");
-    console.log(array)
 
     let stack = [];
     stack.push(0);
