@@ -49,37 +49,37 @@ class MinHeap
         this.heap[indexTwo] = tempValue;
     }
 
-    peek()
+    peek(property)
     {
         if (this.heap.length == 0) return null;
 
-        return this.heap[0];
+        return this.heap[0][property];
     }
 
     // Extracts min from heap and heapifies array 
-    remove()
+    remove(property)
     {
         const element = this.heap[0];
         this.heap[0] = this.heap[this.size() - 1];
         this.heap.pop();
-        this.heapifyDown();
+        this.heapifyDown(property);
         return element;
     }
 
     // Inserts a new element into the heap 
-    insert(item)
+    insert(item, property)
     {
         this.heap.push(item);
-        this.heapifyUp();
+        this.heapifyUp(property);
     }
 
     // Heapify functions 
 
-    heapifyUp()
+    heapifyUp(property)
     {
         let child = this.size() - 1;
         let parent = Math.floor((child - 1) / 2);
-        while(parent >= 0 && this.heap[parent] > this.heap[child])
+        while(parent >= 0 && this.heap[parent][property] > this.heap[child][property])
         {
             this.swap(parent, child);
             child = parent;
@@ -87,17 +87,17 @@ class MinHeap
         }
     }
 
-    heapifyDown()
+    heapifyDown(property)
     {
         let index = 0;
         while ((2 * index + 1) < this.size())
         {
             let smallerChildIndex = 2 * index + 1;
-            if ((2 * index + 2) < this.size() && this.getRightChild(index) < this.getLeftChild(index)) 
+            if ((2 * index + 2) < this.size() && this.getRightChild(index)[property] < this.getLeftChild(index)[property]) 
             {
                 smallerChildIndex = 2 * index + 2;
             }
-            if (this.heap[index] < this.heap[smallerChildIndex]) break;
+            if (this.heap[index][property] < this.heap[smallerChildIndex][property]) break;
             else this.swap(index, smallerChildIndex);
             index = smallerChildIndex;
         }
@@ -151,37 +151,37 @@ class MaxHeap
         this.heap[indexTwo] = tempValue;
     }
 
-    peek()
+    peek(property)
     {
         if (this.heap.length == 0) return null;
 
-        return this.heap[0];
+        return this.heap[0][property];
     }
 
     // Extracts min from heap and heapifies array 
-    remove()
+    remove(property)
     {
         const element = this.heap[0];
         this.heap[0] = this.heap[this.size() - 1];
         this.heap.pop();
-        this.heapifyDown();
+        this.heapifyDown(property);
         return element;
     }
 
     // Inserts a new element into the heap 
-    insert(item)
+    insert(item, property)
     {
         this.heap.push(item);
-        this.heapifyUp();
+        this.heapifyUp(property);
     }
 
     // Heapify functions 
     
-    heapifyUp()
+    heapifyUp(property)
     {
         let child = this.size() - 1;
         let parent = Math.floor((child - 1) / 2);
-        while(parent >= 0 && this.heap[parent] < this.heap[child])
+        while(parent >= 0 && this.heap[parent][property] < this.heap[child][property])
         {
             this.swap(parent, child);
             child = parent;
@@ -189,17 +189,17 @@ class MaxHeap
         }
     }
 
-    heapifyDown()
+    heapifyDown(property)
     {
         let index = 0;
         while ((2 * index + 1) < this.size())
         {
             let greaterChildIndex = 2 * index + 1;
-            if ((2 * index + 2) < this.size() && this.getRightChild(index) > this.getLeftChild(index)) 
+            if ((2 * index + 2) < this.size() && this.getRightChild(index)[property] > this.getLeftChild(index)[property]) 
             {
                 greaterChildIndex = 2 * index + 2;
             }
-            if (this.heap[index] > this.heap[greaterChildIndex]) break;
+            if (this.heap[index][property] > this.heap[greaterChildIndex][property]) break;
             else this.swap(index, greaterChildIndex);
             index = greaterChildIndex;
         }
@@ -216,34 +216,38 @@ class MaxHeap
     }
 }
 
-function kthLargest(nums, k, property) 
+function kthLargest(k, property) 
 {
+    let stars = loadJSONTOArray('data/hyglike.json');
     // min heap
     let pq = new MinHeap();
-    for (const element of nums) 
+    for (const star of stars) 
     {
-        if (pq.size() == k && element < pq.peek()) 
+        if (star[property] == "") continue;
+        if (pq.size() == k && star[property] < pq.peek(property)) 
             continue;
-        pq.insert(element);
+        pq.insert(star, property);
         if (pq.size() > k) 
-            pq.remove();
+            pq.remove(property);
     }
 
-    pq.printHeap();
+    return pq;
 }
 
-function kthSmallest(nums, k) 
+function kthSmallest(k, property) 
 {
+    let stars = loadJSONTOArray('data/hyglike.json');
     // max heap
     let pq = new MaxHeap();
-    for (const element of nums) 
+    for (const star of stars) 
     {
-        if (pq.size() == k && element > pq.peek()) 
+        if (star[property] == "") continue;
+        if (pq.size() == k && star[property] > pq.peek(property)) 
             continue;
-        pq.insert(element);
+        pq.insert(star, property);
         if (pq.size() > k) 
-            pq.remove();
+            pq.remove(property);
     }
 
-    pq.printHeap();
+    return pq;
 }
