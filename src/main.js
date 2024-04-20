@@ -2,6 +2,7 @@ const filterMenu = document.getElementById('filter-menu');
 const startMenu = document.getElementById('start-menu');
 const starsExtraButtons = document.getElementById('stars-extra-buttons');
 const starInfo = document.getElementById("star-info");
+const filterInfo = document.getElementById("filter-info");
 
 
 document.getElementById("filter").addEventListener("click", showFilterMenu);
@@ -11,6 +12,7 @@ function showFilterMenu() {
     startMenu.classList.add('hidden'); 
     starsExtraButtons.classList.add('hidden');
     starInfo.classList.add('hidden');
+    filterInfo.classList.add("hidden");
 }
 
 document.getElementById("view").addEventListener("click", showStars);
@@ -21,6 +23,7 @@ function showStars() {
     document.getElementById('filter-menu').classList.add('hidden'); 
     document.getElementById('stars-extra-buttons').classList.remove('hidden');
     document.getElementById("star-info").classList.remove("hidden");
+    document.getElementById("filter-info").classList.remove("hidden");
 }
 
 document.getElementById("settings").addEventListener("click", showSettings);
@@ -29,6 +32,7 @@ function showSettings() {
     startMenu.classList.add('hidden'); 
     starsExtraButtons.classList.add('hidden');
     starInfo.classList.add('hidden');
+    filterInfo.classList.add('hidden');
 }
 
 document.getElementById("close-settings").addEventListener("click", hideSettings);
