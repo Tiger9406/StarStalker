@@ -263,25 +263,40 @@ function filterStars() {
                 activeStars.push(star);
             }
         }
-
-        clearScene();
-        drawStars();
-        resetView();
-        hideLoader();
     } else {
-        let sortedStars;
-        fetch('.././data/hyglike.json')
-        .then((response) => response.json())
-        .then((json) => {
-            sortedStars = quickSort(json, property);
-            if(greatestOrLeast == "least") activeStars = sortedStars.slice(0, k);
-            else activeStars = sortedStars.slice(-1 * k);
-
-            clearScene();
-            drawStars();
-            resetView();
-            hideLoader();
-        })
-        
+        let heapSorted;
+        let quickSorted;
+        let sorted;
+        const filtered = starsJson.filter(star => star[property] != "")
+        if(greatestOrLeast == "least") {
+            heapSorted = heapsortSmallestK(starsJson, k, property);
+            quickSorted = quicksortSmallestK(starsJson, k, property);
+            sorted = Array.from(filtered).sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])}).slice(0, k);
+        }
+        else{
+            heapSorted = heapsortLargestK(starsJson, k, property);
+            quickSorted = quicksortLargestK(starsJson, k, property);
+            sorted = Array.from(filtered).sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])}).slice(-k);
+        } 
+        activeStars = sorted;
+        let heapSame = true;
+        let quickSame = true;
+        heapSorted.sort(function(a, b){return parseFloat(a[property]) - parseFloat(b[property])});
+        // for(let i = 0; i < sorted.length; i++) {
+        //     if(sorted[i][property] != heapSorted[i][property]) {
+        //         heapSame = false;
+        //         console.log("aa");
+        //         console.log(sorted[i][property]);
+        //         console.log(quickSorted[i][property]);
+        //         console.log(heapSorted[i][property]);
+        //     }
+               
+        // }
+        // console.log(heapSame)
     }
+
+    clearScene();
+    drawStars();
+    resetView();
+    hideLoader();
 }

@@ -1,16 +1,3 @@
-
-function loadJSONTOArray(jsonData){
-    const fs = require('fs');
-    const readJsonData = fs.readFileSync(jsonData);
-    const converted = JSON.parse(readJsonData);
-    let arrayData = [];
-    
-    for (let key in converted) {
-        arrayData.push(converted[key]);
-    }
-    return arrayData;
-}
-
 function swap(array, i, j) {
     let temp = array[j];
     array[j] = array[i];
@@ -19,6 +6,7 @@ function swap(array, i, j) {
 
 function partitionFunc(array, bottom, top, property) {
     //choose top as pivot
+    if(isNaN(parseFloat(pivot))) console.log(pivot);
     const pivot = parseFloat(array[top][property]);
 
     let i = bottom;
@@ -41,6 +29,10 @@ function partitionFunc(array, bottom, top, property) {
 
 
 function quickSort(array, property){
+    console.log(array)
+    array = array.filter(star => star[property] != "");
+    console.log(array)
+
     let stack = [];
     stack.push(0);
     stack.push(array.length - 1);
@@ -67,16 +59,17 @@ function quickSort(array, property){
     return array;
 }
 
-function largestKofArray(array, k, property){
+function quicksortLargestK(array, k, property){
     //sort array
-    let sortedArray = quickSort(array, property);
+    let sortedArray = quickSort(Array.from(array), property);
     //return last k elements
     return sortedArray.slice(-k);
 }
 
-function smallestKofArray(array, k, property){
+function quicksortSmallestK(array, k, property){
     //sort array
-    let sortedArray = quickSort(array, property);
+    let sortedArray = quickSort(Array.from(array), property);
+
     //return first k elements
     return sortedArray.slice(0, k);
 }
