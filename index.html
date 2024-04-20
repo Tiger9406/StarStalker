@@ -22,7 +22,6 @@
     <div id="stars-extra-buttons" class="flex justify-between p-4 hidden absolute top-0 left-0 w-screen">
         <div class="flex space-x-4">
             <button id="filter-top" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Filter</button>
-            <button onclick="" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Info</button>
         </div>
         <div class="flex space-x-4">
             <button id="settings" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Settings</button>
@@ -200,10 +199,16 @@
     </div>
 
     <!-- Filter Info -->
-    <div id="filter-info" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm w-96">
-        <p class="text-lg">Displaying <span id="num-stars">118,971</span> brightest stars</p>
-        <p>Time to execute k-largest elements with quicksort: <span id="quicksort-time"> 6666</span>ms</p>
-        <p>Time to execute k-largest elements with heapsort: <span id="quicksort-time">2343</span>ms</p>
+    <div id="filter-info" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm">
+        <p class="text-lg">Displaying <span id="num-stars">all 118,971</span> <span id="filter-property"></span> stars</p>
+        <div id="filter-time" class="hidden text-sm">
+            <p class="text-md">Time to find k-largest elements</p>
+            <p>Using quicksort: <span id="quick-time"></span> ms</p>
+            <p>Using a <span id="heap-type">max</span> heap: <span id="heap-time"></span> ms</p>
+        </div>
+    </div>
+    <div id="filter-info-con" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm hidden">
+        <p class="text-lg">Displaying <span id="num-stars-con">118,971</span> stars in constellation group <span id="con-group">And</span></p>
     </div>
 
     <!-- Star Info -->
@@ -213,6 +218,7 @@
         <p>Constellation Group: <span id="constellation"></span></p>
         <p>Spectral Type: <span id="spectral-type"></span></p>
         <p>Distance from Earth: <span id="distance"></span></p>
+        <p>XYZ Coordinates: <span id="xyz"></span></p>
         <p>Radial Velocity: <span id="radial-velocity"></span></p>
         <p>Visual Magnitude: <span id="visual-magnitude"></span></p>
         <p>Absolute Magnitude: <span id="absolute-magnitude"></span></p>
