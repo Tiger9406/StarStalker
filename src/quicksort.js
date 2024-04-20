@@ -1,12 +1,25 @@
+
+function loadJSONTOArray(jsonData){
+    const fs = require('fs');
+    const readJsonData = fs.readFileSync(jsonData);
+    const converted = JSON.parse(readJsonData);
+    let arrayData = [];
+    
+    for (let key in converted) {
+        arrayData.push(converted[key]);
+    }
+    return arrayData;
+}
+
 function swap(array, i, j) {
     let temp = array[j];
     array[j] = array[i];
     array[i] = temp;
 }
 
-function partitionFunc(array, bottom, top) {
+function partitionFunc(array, bottom, top, property) {
     //choose top as pivot
-    const pivot = array[top];
+    const pivot = parseFloat(array[top][property]);
 
     let i = bottom;
 
@@ -15,7 +28,7 @@ function partitionFunc(array, bottom, top) {
         //if smaller, swap with i; i goes up along with j
         //if larger, i stays, j goes up
         //next j will swap with i
-        if (array[j] < pivot) {
+        if (parseFloat(array[j][property]) < pivot) {
             swap(array, i, j);
             i++;
         }
@@ -27,7 +40,7 @@ function partitionFunc(array, bottom, top) {
 }
 
 
-function quickSort(array){
+function quickSort(array, property){
     let stack = [];
     stack.push(0);
     stack.push(array.length - 1);
@@ -37,7 +50,7 @@ function quickSort(array){
         const bottom = stack.pop();
 
         //pivot index returned
-        const pivotI = partitionFunc(array, bottom, top);
+        const pivotI = partitionFunc(array, bottom, top, property);
 
         //if final pivot location is not at the bottom, add the left side to stack
         if (pivotI - 1 > bottom) {
@@ -54,16 +67,19 @@ function quickSort(array){
     return array;
 }
 
-function largestKofArray(array, k){
+function largestKofArray(array, k, property){
     //sort array
-    let sortedArray = quickSort(array);
+    let sortedArray = quickSort(array, property);
     //return last k elements
     return sortedArray.slice(-k);
 }
 
-function smallestKofArray(array, k){
+function smallestKofArray(array, k, property){
     //sort array
-    let sortedArray = quickSort(array);
+    let sortedArray = quickSort(array, property);
     //return first k elements
     return sortedArray.slice(0, k);
 }
+
+const arrayData = loadJSONTOArray('data/hygdata_v41.json');
+console.log(largestKofArray(arrayData, 5, 'dist'));
