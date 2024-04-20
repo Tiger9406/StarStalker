@@ -186,7 +186,7 @@
                 <div id="unreasonable-range-values" class="hidden">
                     <span class="text-sm text-white absolute start-0 -bottom-6">0</span>
                     <span class="text-sm text-white absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">50,000</span>
-                    <span class="text-sm text-white absolute end-0 -bottom-6">119,628</span>
+                    <span class="text-sm text-white absolute end-0 -bottom-6">118,971</span>
                 </div>
 
             </div>
@@ -197,6 +197,13 @@
             </div>
 
         </div>
+    </div>
+
+    <!-- Filter Info -->
+    <div id="filter-info" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm w-96">
+        <p class="text-lg">Displaying <span id="num-stars">118,971</span> brightest stars</p>
+        <p>Time to execute k-largest elements with quicksort: <span id="quicksort-time"> 6666</span>ms</p>
+        <p>Time to execute k-largest elements with heapsort: <span id="quicksort-time">2343</span>ms</p>
     </div>
 
     <!-- Star Info -->
@@ -211,9 +218,9 @@
         <p>Absolute Magnitude: <span id="absolute-magnitude"></span></p>
     </div>
 
-    <script type="module" src="./src/stars.js"></script>
-    <script src="./src/main.js"></script>
     <script src="./src/heap.js"></script>
     <script src="./src/quicksort.js"></script>
+    <script src="./src/main.js"></script>
+    <script type="module" src="./src/stars.js"></script>
 </body>
 </html>
