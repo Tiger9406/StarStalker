@@ -1,6 +1,6 @@
 # Instructions for Star Stalker
 
-1. Go to the following website: [Star Stalker](cyruskell.com)
+1. Go to the following website: cyruskell.com
 2. The first time you go to the website it might take a couple seconds for your device to load the JSON data so just enjoy the loading animation :)
 3. Once the data is loaded, you will be greeted with our start screen where you can either filter the viewport or use the base viewport displaying all the 118,971 stars.
 4. Once inside the viewport, hold the left mouse button and look around to explore the cosmos. We also support holding the shift key and right mouse button to look around this star studded space. 
