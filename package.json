@@ -7,6 +7,10 @@
     "three": "^0.163.0"
   },
   "scripts": {
+<<<<<<< HEAD
     "build": "vite build && npx tailwindcss -i .dist/src/style.css -o output.css --minify"
+=======
+    "build": "npx tailwindcss -i ./src/style.css -o output.css --minify && vite build"
+>>>>>>> 2ef505921cf478a15a0260444ae6d45b2015b956
   }
 }
