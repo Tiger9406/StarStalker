@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../output.css" rel="stylesheet">
+    <title>StarStalker</title>
+  <script type="module" crossorigin src="/assets/index-BF70OGaV.js"></script>
+</head>
+<body class="bg-black text-white font-mono">
+    <!-- Canvas -->
+    <div class="fixed left-0 top-0 right-0 bottom-0" style="z-index: -1;">
+        <canvas id="canvas" class="absolute w-full h-full left-0 top-0"></canvas>
+    </div>
+
+    <!-- Loading Icon -->
+    <div id="loading-icon" class="bg-black flex items-center justify-center w-screen h-screen absolute top-0 left-0 transition-opacity duration-1000" style="z-index: 10;">
+        <img class="w-[300px] h-auto" src="/assets/loading-C2Uk63lT.gif" alt="">
+    </div>
+
+
+    <!-- Back and Info Buttons For Star Display -->
+    <div id="stars-extra-buttons" class="flex justify-between p-4 hidden absolute top-0 left-0 w-screen">
+        <div class="flex space-x-4">
+            <button id="filter-top" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Filter</button>
+        </div>
+        <div class="flex space-x-4">
+            <button id="settings" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Settings</button>
+            <button id="reset-view" type="button" class="text-white hover:text-black border border-white hover:bg-white text-sm py-2 px-6 text-center">Reset View</button>
+        </div>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu" class="flex flex-col items-center justify-center h-screen mx-auto space-y-12">
+        <h1 class="text-8xl">StarStalker</h1>
+        <div class="flex space-x-4">
+            <button id="filter" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Filter</button>
+            <button id="view" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">View</button>
+        </div> 
+    </div>
+
+    <!-- Filter Menu -->
+    <div id="filter-menu" class="flex items-center justify-center h-screen mx-auto hidden ">
+        <div class="border-white border-2  p-4 max-h-96 max-w-screen-md h-full w-full bg-black">
+            <div class="flex justify-between">
+                <h1 class="text-2xl self-start justify-self-start">Filter</h1>
+                <button id="close-filter" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Close</button>
+            </div>
+
+            <div class="flex justify-center flex-col items-center space-y-16 mt-20">
+                <div class="flex space-x-8">
+                <div>
+                    <input id="number" name="number" type="number" placeholder="Input: # (0-118,971)" class="bg-black text-white border-2 border-white p-2 placeholder:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" >
+                </div>
+
+                <div>
+                    <select id="properties" name="properties" placeholder="Select Property" class="bg-black border-2 border-white p-2 h-full w-52">
+                        <option value="dist">Distance</option>
+                        <option value="rv">Radial Velocity</option>
+                        <option value="mag">Visual Magnitude</option>
+                        <option value="absmag">Absolute Magnitude</option>
+                        <option value="con">Constellation Group</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select id="greatest-or-least" name="greatest-or-least" class="bg-black border-2 border-white p-2 h-full w-52">
+                        <option id="least" value="least">Closest</option>
+                        <option id="greatest" value="greatest">Farthest</option>
+                    </select>
+                    <select name="constellations" id="constellations" class="bg-black border-2 border-white p-2 h-full w-52 hidden">
+                        <option value='And'>And</option>
+                        <option value='Cap'>Cap</option>
+                        <option value='Col'>Col</option>
+                        <option value='Dra'>Dra</option>
+                        <option value='Lac'>Lac</option>
+                        <option value='Mus'>Mus</option>
+                        <option value='Psc'>Psc</option>
+                        <option value='Tau'>Tau</option>
+                        <option value='Ant'>Ant</option>
+                        <option value='Car'>Car</option>
+                        <option value='Com'>Com</option>
+                        <option value='Eql'>Eql</option>
+                        <option value='Leo'>Leo</option>
+                        <option value='Nor'>Nor</option>
+                        <option value='Pup'>Pup</option>
+                        <option value='Tel'>Tel</option>
+                        <option value='Aps'>Aps</option>
+                        <option value='Cas'>Cas</option>
+                        <option value='CrA'>CrA</option>
+                        <option value='Eri'>Eri</option>
+                        <option value='Lep'>Lep</option>
+                        <option value='Oct'>Oct</option>
+                        <option value='Pyx'>Pyx</option>
+                        <option value='TrA'>TrA</option>
+                        <option value='Aql'>Aql</option>
+                        <option value='Cen'>Cen</option>
+                        <option value='CrB'>CrB</option>
+                        <option value='For'>For</option>
+                        <option value='Lib'>Lib</option>
+                        <option value='Oph'>Oph</option>
+                        <option value='Ret'>Ret</option>
+                        <option value='Tri'>Tri</option>
+                        <option value='Aqr'>Aqr</option>
+                        <option value='Cep'>Cep</option>
+                        <option value='Crt'>Crt</option>
+                        <option value='Gem'>Gem</option>
+                        <option value='LMi'>LMi</option>
+                        <option value='Ori'>Ori</option>
+                        <option value='Scl'>Scl</option>
+                        <option value='Tuc'>Tuc</option>
+                        <option value='Ara'>Ara</option>
+                        <option value='Cet'>Cet</option>
+                        <option value='Cru'>Cru</option>
+                        <option value='Gru'>Gru</option>
+                        <option value='Lup'>Lup</option>
+                        <option value='Pav'>Pav</option>
+                        <option value='Sco'>Sco</option>
+                        <option value='UMa'>UMa</option>
+                        <option value='Ari'>Ari</option>
+                        <option value='Cha'>Cha</option>
+                        <option value='Crv'>Crv</option>
+                        <option value='Her'>Her</option>
+                        <option value='Lyn'>Lyn</option>
+                        <option value='Peg'>Peg</option>
+                        <option value='Sct'>Sct</option>
+                        <option value='UMi'>UMi</option>
+                        <option value='Aur'>Aur</option>
+                        <option value='Cir'>Cir</option>
+                        <option value='CVn'>CVn</option>
+                        <option value='Hor'>Hor</option>
+                        <option value='Lyr'>Lyr</option>
+                        <option value='Per'>Per</option>
+                        <option value='Ser'>Ser</option>
+                        <option value='Vel'>Vel</option>
+                        <option value='Boo'>Boo</option>
+                        <option value='CMa'>CMa</option>
+                        <option value='Cyg'>Cyg</option>
+                        <option value='Hya'>Hya</option>
+                        <option value='Men'>Men</option>
+                        <option value='Phe'>Phe</option>
+                        <option value='Sex'>Sex</option>
+                        <option value='Vir'>Vir</option>
+                        <option value='Cae'>Cae</option>
+                        <option value='CMi'>CMi</option>
+                        <option value='Del'>Del</option>
+                        <option value='Hyi'>Hyi</option>
+                        <option value='Mic'>Mic</option>
+                        <option value='Pic'>Pic</option>
+                        <option value='Sge'>Sge</option>
+                        <option value='Vol'>Vol</option>
+                        <option value='Cam'>Cam</option>
+                        <option value='Cnc'>Cnc</option>
+                        <option value='Dor'>Dor</option>
+                        <option value='Ind'>Ind</option>
+                        <option value='Mon'>Mon</option>
+                        <option value='PsA'>PsA</option>
+                        <option value='Sgr'>Sgr</option>
+                        <option value='Vul'>Vul</option>
+                    </select>
+                </div>
+
+                </div>
+
+                <button id="go" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">GO!</button>
+            </div>
+        </div>
+    </div>
+
+     <!-- Settings -->
+     <div id="settings-menu" class="flex items-center justify-center h-screen mx-auto hidden">
+        <div class="border-white border-2  p-4 max-h-96 max-w-screen-md h-full w-full bg-black">
+            <div class="flex justify-between">
+                <h1 class="text-2xl self-start justify-self-start">Settings</h1>
+                <button id="close-settings" type="button" class="text-white hover:text-black border border-white hover:bg-white text-lg py-2 px-6 text-center">Close</button>
+            </div>
+
+            <div class="flex flex-col justify-center items-center mt-20 mx-10 relative"> 
+                <label for="change-rd" class="block mb-2 text-sm font-medium text-white">Maximum Number of Detailed Stars</label>
+                <input id="change-rd" type="range" min="0" max="20000" value="1000" step="1000" class="w-full h-2 bg-white rounded-lg appearance-none cursor-pointer accent-gray-500">
+                <div id="reasonable-range-values">
+                    <span class="text-sm text-white absolute start-0 -bottom-6">0</span>
+                    <span class="text-sm text-white absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">10,000</span>
+                    <span class="text-sm text-white absolute end-0 -bottom-6">20,000</span>
+                </div>
+                <div id="unreasonable-range-values" class="hidden">
+                    <span class="text-sm text-white absolute start-0 -bottom-6">0</span>
+                    <span class="text-sm text-white absolute start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">50,000</span>
+                    <span class="text-sm text-white absolute end-0 -bottom-6">118,971</span>
+                </div>
+
+            </div>
+
+            <div class="flex items-center mt-20 mx-10">
+                <input id="unreasonable" type="checkbox" value="" class="w-4 h-4">
+                <label for="unreasonable" class="ms-2 text-sm font-medium text-white">Enable full range (Warning: may cause performance issues)</label>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Filter Info -->
+    <div id="filter-info" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm">
+        <p class="text-lg">Displaying <span id="num-stars">all 118,971</span> <span id="filter-property"></span> stars</p>
+        <div id="filter-time" class="hidden text-sm">
+            <p class="text-md">Time to find k-largest elements</p>
+            <p>Using quicksort: <span id="quick-time"></span> ms</p>
+            <p>Using a <span id="heap-type">max</span> heap: <span id="heap-time"></span> ms</p>
+        </div>
+    </div>
+    <div id="filter-info-con" class="flex justify-between p-4 absolute bottom-4 left-4 border-2 border-white hidden flex-col space-y-2 text-sm hidden">
+        <p class="text-lg">Displaying <span id="num-stars-con">118,971</span> stars in constellation group <span id="con-group">And</span></p>
+    </div>
+
+    <!-- Star Info -->
+    <div id="star-info" class="flex justify-between p-4 absolute bottom-4 right-4 border-2 border-white hidden flex-col space-y-2 text-sm w-96">
+        <p class="text-lg">Star Info</p>
+        <p>Name: <span id="proper-name"></span></p>
+        <p>Constellation Group: <span id="constellation"></span></p>
+        <p>Spectral Type: <span id="spectral-type"></span></p>
+        <p>Distance from Earth: <span id="distance"></span></p>
+        <p>XYZ Coordinates: <span id="xyz"></span></p>
+        <p>Radial Velocity: <span id="radial-velocity"></span></p>
+        <p>Visual Magnitude: <span id="visual-magnitude"></span></p>
+        <p>Absolute Magnitude: <span id="absolute-magnitude"></span></p>
+    </div>
+
+</body>
+</html>
