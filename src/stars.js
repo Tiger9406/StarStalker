@@ -119,7 +119,7 @@ function calculatePointer( event ) {
 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }
-canvas.addEventListener( 'click', calculatePointer );
+window.addEventListener( 'click', calculatePointer );
 
 let last;
 let lastColor;

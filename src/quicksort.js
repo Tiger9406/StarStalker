@@ -3,7 +3,6 @@ function swap(array, i, j) {
     array[j] = array[i];
     array[i] = temp;
 }
-
 function partitionFunc(array, bottom, top, property) {
     //choose top as pivot
     const pivot = array[top][property];
@@ -53,19 +52,20 @@ function quickSort(array, property){
             stack.push(top);
         }
     }
-    return array;
 }
 
 function quicksortLargestK(array, k, property){
     //sort array
-    let sortedArray = quickSort(Array.from(array), property);
+    let sortedArray = Array.from(array);
+    quickSort(sortedArray, property);
     //return last k elements
     return sortedArray.slice(-k);
 }
 
 function quicksortSmallestK(array, k, property){
     //sort array
-    let sortedArray = quickSort(Array.from(array), property);
+    let sortedArray = Array.from(array);
+    quickSort(sortedArray, property);
 
     //return first k elements
     return sortedArray.slice(0, k);

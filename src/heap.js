@@ -198,7 +198,7 @@ function heapsortLargestK(stars, k, property)
 
     return pq.heap;
 }
-
+let count = 0;
 function heapsortSmallestK(stars, k, property) 
 {
     // max heap
@@ -206,12 +206,12 @@ function heapsortSmallestK(stars, k, property)
     for (const star of stars) 
     {
         if (star[property] == "") continue;
+        count++;
         if (pq.size() == k && parseFloat(star[property]) > pq.peek(property)) 
             continue;
         pq.insert(star, property);
         if (pq.size() > k) 
             pq.remove(property);
     }
-
     return pq.heap;
 }
