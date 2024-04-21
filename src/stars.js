@@ -11,21 +11,17 @@ const loader = document.getElementById("loading-icon");
 let starsJson = [];
 let activeStars = [];
 
-for(let i = 1; i <= 8; i++) {
-    fetch(`.././data/hyglike_${i}.json`)
-    .then((response) => response.json())
-    .then((json) => {
-        for(const star of json) {
-            starsJson.push(star);
-        }
-        if(i == 8) {
-            activeStars = starsJson;
-            drawStars();
-        }    
-    })
-}
-
-
+const url_nums = [1, 2, 3, 4, 5, 6, 7, 8];
+Promise.all(
+url_nums.map(num =>
+    fetch(`.././data/hyglike_${num}.json`)
+        .then(e => e.json())
+    )
+).then(data => {
+    starsJson = data.flat();
+    activeStars = starsJson;
+    drawStars();
+});
 
 // create scene and renderer
 const scene = new THREE.Scene();
@@ -75,7 +71,6 @@ function drawStars() {
     if(activeStars.length > renderNum) activeStars.sort(function(a, b){return a.dist - b.dist});
     for(let i = 0; i < activeStars.length; i++) {
         const star = activeStars[i];
-        // if(star.dist >= 99999) continue;
         if(i <= renderNum) activeStarsDetailed.push(star);
         else activeStarsLowDetail.push(star);
     }

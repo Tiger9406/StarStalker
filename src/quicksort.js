@@ -61,6 +61,7 @@ function quicksortLargestK(array, k, property){
     //return last k elements
     return sortedArray.slice(-k);
 }
+window.quicksortLargestK = quicksortLargestK;
 
 function quicksortSmallestK(array, k, property){
     //sort array
@@ -70,3 +71,4 @@ function quicksortSmallestK(array, k, property){
     //return first k elements
     return sortedArray.slice(0, k);
 }
+window.quicksortSmallestK = quicksortSmallestK;
