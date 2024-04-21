@@ -8,15 +8,23 @@ import { UnrealBloomPass } from 'three/examples/jsm/Addons.js';
 const loader = document.getElementById("loading-icon");
 
 // load star data from json file
-let starsJson;
+let starsJson = [];
 let activeStars = [];
-fetch('.././data/hyglike.json')
+
+for(let i = 1; i <= 8; i++) {
+    fetch(`.././data/hyglike_${i}.json`)
     .then((response) => response.json())
     .then((json) => {
-        starsJson = json;
-        activeStars = starsJson;
-        drawStars();
+        for(const star of json) {
+            starsJson.push(star);
+        }
+        if(i == 8) {
+            activeStars = starsJson;
+            drawStars();
+        }    
     })
+}
+
 
 
 // create scene and renderer
