@@ -13,7 +13,8 @@
 11. There is a reset view option to reset your camera back to its original position.
 12. There is also a settings option to render a higher number of stars in great detail.
 13. There is a filter option where you can specify the number of stars you want to see based on different properties.
-14. Quick note, after selecting a constellation group you may have to look around to see the constellation as it may not be facing the camera's original position.
-15. Lastly, for certain options you may have a hard time seeing the stars due to their vast distance from the Earth. So we recommend inputing a large number for the star count when exploring these options.
+14. After filtering the viewport, you will see how fast each algorithm took to run and compare which one was more efficient. (In most cases you will find that the algorithms that uses a heap to get a k amount of elements is faster than quicksort)
+15. Quick note, after selecting a constellation group you may have to look around to see the constellation as it may not be facing the camera's original position.
+16. Lastly, for certain options you may have a hard time seeing the stars due to their vast distance from the Earth. So we recommend inputing a large number for the star count when exploring these options.
 
 Enjoy Exploring the Cosmos!! 
