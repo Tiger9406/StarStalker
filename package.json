@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.9"
+  },
+  "dependencies": {
+    "three": "^0.163.0"
+  },
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/style.css -o output.css --minify && vite build"
+  }
+}
